@@ -22,7 +22,7 @@ module.exports = {
             text: 'You just signed up to the Blocipedia Application.',
             html: 'Let us get started.</strong>',
           };
-          console.log(`Msg : ${msg}`)
+        
           sgMail.send(msg);
 
           callback(null, user);
