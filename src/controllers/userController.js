@@ -8,7 +8,7 @@ module.exports = {
     res.render("users/sign_up");
   },
 
-   create(req, res, next){
+  create(req, res, next){
       let newUser = {
         username: req.body.username,
         email: req.body.email,
@@ -27,7 +27,52 @@ module.exports = {
           })
         }
       });
-    }
+    },
+
+  signInForm(req, res, next){
+    res.render("users/sign_in");
+  },
+
+  // signIn(req, res, next){
+  //   passport.authenticate("local")(req, res, function () {
+  //     if(!req.user){
+  //       req.flash("notice", "Sign in failed. Please try again.")
+  //       res.redirect("/users/sign_in");
+  //     } else {
+  //       req.flash("notice", "You've successfully signed in!");
+  //       res.redirect("/");
+  //     }
+  //   })
+  // },
+
+
+
+  signIn(req, res, next){
+    passport.authenticate("local", function(err, user, info){
+      if(err){
+        next(err);
+      }
+      if(!user){
+        req.flash("notice", "Error: The email or password you entered is incorrect.")
+        res.redirect("/users/sign_in");
+      }
+      req.logIn(user,function(err){
+        if(err){
+          next(err);
+        }
+        req.flash("notice", "You've successfully signed in!");
+        res.redirect("/");
+      });
+    })(req, res, next);
+   },
+
+  signOut(req, res, next){
+    req.logout();
+    req.flash("notice", "You've successfully signed out!");
+    res.redirect("/");
+  }
+
+  
   
 
 
