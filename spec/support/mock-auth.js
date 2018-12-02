@@ -4,9 +4,9 @@ module.exports = {
     fakeIt(app){
         let role, id, email;
 
-        function middleware(req, res, next){
+        function middleware(req, res, next){ //(this is server side, taken from wiki_spec line 53)
             role =  req.body.role || role;
-            id = req.body.id || id;
+            id = req.body.userId || id;
             email = req.body.email || email;
 
  //Passport loads the authenticated user in req.user           
