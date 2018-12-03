@@ -6,6 +6,8 @@ module.exports = {
          req.checkBody("username", "must be at least 3 characters in length").isLength({min: 3});
          req.checkBody("email", "must be valid").isEmail();
          req.checkBody("password", "must be at least 6 characters in length").isLength({min: 6});
+         req.checkBody("password", "must have no spaces.").custom(value => !/\s/.test(value))
+                         
          req.checkBody("passwordConfirmation", "must match password provided").optional().matches(req.body.password);
        }
        const errors = req.validationErrors();
