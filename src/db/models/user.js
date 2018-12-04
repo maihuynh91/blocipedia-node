@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         isEmail: { msg: "must be a valid email" }
       }
@@ -17,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     role: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: "standard"
     }
    
   }, {});
@@ -31,17 +32,13 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
- User.prototype.isStandard = function(){
-   return this.role === 0;
- };
-
-//  User.prototype.isPremium = function(){
-//   return this.role === 1;
-// };
-
- User.prototype.isAdmin = function(){
-  return this.role === 1;
-};
+  User.prototype.isAdmin = function() {
+    return this.role === "admin";
+  };
+  
+  User.prototype.isPremium = function() {
+    return this.role === "premium";
+  };
 
 
   return User;

@@ -1,30 +1,25 @@
-const ApplicationPolicy = require("./application");
+// const ApplicationPolicy = require("./application");
 
-module.exports = class WikiPolicy extends ApplicationPolicy {
+//  module.exports = class PostPolicy extends ApplicationPolicy {
 
-  
-  new() {
-    return this.user != null;
- }
+//     new() {
+//         return (this._isAdmin() || this._isPremium() || this._isStandard()); 
+//     }
 
-  create() {
-    return this.new();
-  }
+//     create() {
+//         return this.new();
+//     }
 
-  show() {
-    return true;
-  }
+//     edit() {
+//         return (this._isAdmin() || this._isPremium() || this._isStandard());
+//     }
 
-  edit() {
-    return true
-  }
+//     update() {
+//         return this.edit();
+//     }
 
-  update() {
-    return this.new();
-  }
-
-  destroy() {
-    return this.update();
-  }
-  
-}
+//     destroy() {
+//         return this.update();
+//     }
+    
+// }
