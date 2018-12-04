@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         isEmail: { msg: "must be a valid email" }
       }
@@ -15,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "standard"
     }
    
   }, {});
@@ -25,5 +31,15 @@ module.exports = (sequelize, DataTypes) => {
       as: "wikis"
     });
   };
+
+  User.prototype.isAdmin = function() {
+    return this.role === "admin";
+  };
+  
+  User.prototype.isPremium = function() {
+    return this.role === "premium";
+  };
+
+
   return User;
 };
