@@ -38,45 +38,47 @@ describe("routes : wikis", () => {
                 });
             });
         });
-    });
+    }); /* END BEFORE EACH */
 
-    describe(" user performing CRUD actions for Wiki", () => {
+ // ADMIN USER: CREATE, READ, UPDATE, EDIT, DELETE
+    
+    describe(" admin user performing CRUD actions for Wiki", () => {
+
         beforeEach((done) => {
             User.create({
-                username: "Emma",
-                email: "emma@example.com",
-                password: "123456789"
+            email: "admin@example.com",
+            password: "123456",
+            role: 1 //for admin
             })
             .then((user) => {
-                request.get({
-                    url: "http://localhost:3000/auth/fake",
-//submit this form to server, server uses body parser to parse these and put them into req.body
-                    form: {
-                        username: user.username,
-                        userId: user.id,
-                        email: user.email
-                    }
-                }, (err, res, body) => {
-                    done();
+            request.get({         // mock authentication
+                url: "http://localhost:3000/auth/fake",
+                form: {
+                role: user.role,     // mock authenticate as admin user
+                userId: user.id,
+                email: user.email
                 }
-                );
+            },
+                (err, res, body) => {
+                done();
+                });
             });
         });
 
-/* GET WIKI */
+    /* GET WIKI */
         describe("GET /wikis", () => {
             it("should respond with all wikis", (done) => {
-              request.get(base, (err, res, body) => {
+            request.get(base, (err, res, body) => {
                 expect(res.statusCode).toBe(200);
                 expect(err).toBeNull();
                 expect(body).toContain("Wikis");
                 expect(body).toContain("Node JS");
                 done();
-              });
+            });
             });    
-          });
+        });
 
-/* CREATING NEW WKI */ 
+    /* CREATING NEW WIKI */ 
 
         describe("GET /wikis/new", () => {
             it("should render a new wiki form", (done) => {
@@ -89,7 +91,7 @@ describe("routes : wikis", () => {
             });
         });
 
-/* CREATE */
+    /*  CREATE */
 
         describe("POST /wikis/create", () => {
 
@@ -104,8 +106,7 @@ describe("routes : wikis", () => {
             it("should create a new wiki and redirect", (done) => {
                 request.post(options, 
                     (err, res, body) => {
-                       console.log(`body here : ${body}`)
-                       Wiki.findOne({where: {title: "blink-182 songs"}})
+                    Wiki.findOne({where: {title: "blink-182 songs"}})
                         .then((wiki) => {
                             expect(res.statusCode).toBe(303);
                             expect(wiki.title).toBe("blink-182 songs");
@@ -116,7 +117,7 @@ describe("routes : wikis", () => {
                             console.log(err);
                             done();
                         });   
-                   });
+                });
                 });
             });
     //SHOW, DISPLAY INDIVIDUAL WIKI 
@@ -130,10 +131,9 @@ describe("routes : wikis", () => {
             });
         });
 
-    //DESTROY
+    // DESTROY
         describe("POST /wikis/:id/destroy", () => {
             it("should delete wiki with the associated id", (done) => {
-
                 Wiki.all()
                 .then((wikis) => {
 
@@ -189,10 +189,8 @@ describe("routes : wikis", () => {
                 });
             });
 
+    }); // END ADMIN = 1: READ, CREATE, UPDATE, EDIT, DESTROY
+
+
+
     });
-
-
-
-
-
-  });
