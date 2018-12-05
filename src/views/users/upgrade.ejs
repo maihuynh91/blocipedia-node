@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../static/partials/head.ejs %>
+    </head>
+
+    <body>
+        <% include ../static/partials/navbar.ejs %>
+
+        <main class="container">
+
+            
+            <% include ../static/partials/messages.ejs %>
+
+            <h1> Upgrade Your Account</h1>
+            <p> You can upgrade your account to make the private wikis with 15 dollars a month</p>
+
+            <form action="/users/<%=user.id%>/upgrade" method="POST">
+                <script
+                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key="pk_test_smbTUhXki8jVgxnZbi53Vjm4"
+                  data-amount="1500"
+                  data-name="Blocipedia"
+                  data-description="Premium Plan"
+                  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                  data-locale="auto"
+                  data-zip-code="true">
+                </script>
+              </form>
+
+        </main>
+
+        <% include ../static/partials/baseScripts.ejs %>
+
+    </body>
+</html>

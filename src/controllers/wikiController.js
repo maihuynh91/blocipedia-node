@@ -15,6 +15,7 @@ module.exports = {
 
   new(req, res, next){
     const authorized = new Authorizer(req.user).new();
+
     if(authorized) {
       res.render("wikis/new");
     } else {
@@ -25,6 +26,7 @@ module.exports = {
 
   create(req, res, next){
      const authorized = new Authorizer(req.user).create();
+     
      if(authorized) {
        let newWiki = {
          title: req.body.title,
