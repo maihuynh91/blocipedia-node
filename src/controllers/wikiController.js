@@ -91,5 +91,17 @@ module.exports = {
          res.redirect(`/wikis/${req.params.id}`);
        }
      });
-   }
+   },
+
+   private(req, res, next) {
+    wikiQueries.getAllWikis((err, wikis) => {
+      if(err){
+        res.redirect(500, "static/index");
+      } else {
+        res.render("wikis/private", {wikis});
+      }
+    })
+  },
+
+
 }

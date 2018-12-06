@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries.users.js");
+const wikiQueries = require("../db/queries.wikis.js");
 const passport = require("passport");
 
 const secretKey = process.env.STRIPE_SECRET_KEY;
@@ -102,7 +103,7 @@ module.exports = {
           if(result){
             userQueries.changeRole(user);
             req.flash("notice", "You have been updated to Premium.");
-            res.redirect("/")
+            res.redirect("/wikis/private")
           } else{
               req.flash("notice", "Upgrade unsuccessful.");
               res.redirect("users/show", {user});
@@ -132,6 +133,7 @@ module.exports = {
         res.redirect("users/show", {user});
       } else {
         userQueries.changeRole(user);
+        wikiQueries.makePublic(user)
         req.flash("notice", "You have been downgraded to Standard Plan ");
         res.redirect("/")
       }

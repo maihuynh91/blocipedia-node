@@ -10,10 +10,13 @@
         <% include ../static/partials/navbar.ejs %>
 
         <main class="container">
+            <hr>
+            <hr>
+            
 
             <% include ../static/partials/messages.ejs %>
 
-            <h4>Do you want to drowngrade?</h4>
+            <h5>Do you want to drowngrade?</h5>
 <hr>
             <form action="/users/<%= user.id %>/downgrade" method="POST">
                 <button type="Submit" class="btn btn-warning">YES!</button>
