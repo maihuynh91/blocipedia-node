@@ -11,21 +11,18 @@
 
       <% include ../static/partials/messages.ejs %>
 
-
-      <h1><%= `${user.username}'s Account` %></h1>
-
-      <hr> 
-
-      <h4 class="container">Your Account Status is : <%= user.role %> </h4>
-
-      
+    <hr>  <hr>  <hr>
+    <li class="list-group-item">
+      <ul class="container">Account Status is : <%= user.role %> </ul>
+      <ul class="container">Email: <%= user.email%> </ul>
+    </li> 
         <%  if(currentUser && currentUser.isPremium()) {  %>
                 <a href="/users/<%= user.id %>/downgrade" class="btn btn-primary btn-lg"> Downgrade to Standard</a>
                 <p class = "card-text">With Standard Package, You will not able to create Private Wikis, and the Private Wikis will become Public.</p>
         <% } %>
 
         <% if(currentUser && !currentUser.isPremium()) { %>
-            <h4 class = "card-text">Upgrade your account to premium so that you can create the private wikis.</h4>
+            <h4 class = "card-text"> Upgrade your account to premium so that you can create the private wikis.</h4>
             <a href="/users/<%= user.id %>/upgrade" class="btn btn-primary btn-lg">Upgrade to Premium</a>
             <% } %>
      

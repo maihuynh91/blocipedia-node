@@ -10,7 +10,8 @@
 
       <% include ../static/partials/navbar.ejs %>
 
-       <h1>My Private Wikis</h1>
+      <hr>  <hr>  <hr>
+       <h5> Private Wikis</h5>
 
       <% if(currentUser && currentUser.role !== "premium") { %>
           <p> Upgrade your account to view and create the private wikis.</p>
@@ -20,11 +21,10 @@
           <a href="/wikis/new" class="btn btn-success">Create Wiki</a>
       <% } %>
 
-      <hr>
 
       <ul class="list-group">
         <% wikis.forEach((wiki) => { %>
-          <% if(wiki.private === true && wiki.userId === currentUser.id) { %>
+          <% if(wiki.private === true && currentUser.role !== "standard") { %>
             <li class="list-group-item">
               <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
             </li>
