@@ -1,6 +1,14 @@
 heroku run sequelize db:migrate
 
++ sequelize db:migrate:undo:all && sequelize db:migrate:undo:all --env test
++ sequelize db:migrate && sequelize db:migrate --env test
 
+`faker` helps us generate specific values to use for seeding:
+run seed: `sequelize db:seed:all`
+```
+
+* The Markdown package converts the text to HTML
+- install `marked` package
 let name='Mai'
 let user = {'email':'aa@aa.com','password':'aa','role':'admin'}
 callback(null,user);
@@ -26,3 +34,6 @@ function  callbackDifferentKeyValue(err,userValue){
     console.log(`callbackDifferentKeyValue:${JSON.stringify(users.userKey)}`);
 
 }
+
+```
+

@@ -33,6 +33,7 @@ module.exports ={
     getWiki(id, callback){
         return Wiki.findById(id)
         .then((wiki) => {
+            wiki.body = wiki.body.toString('utf8');
             callback(null, wiki);
         })
         .catch((err)=> {

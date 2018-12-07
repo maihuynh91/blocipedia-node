@@ -1,5 +1,6 @@
 const wikiQueries = require("../db/queries.wikis.js");
 const Authorizer = require("../policies/application");
+const marked = require("marked");
 
 module.exports = {
 
@@ -50,9 +51,17 @@ module.exports = {
   show(req, res, next){
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
       if(err || wiki == null){
+        console.log('cannot find wiki'+ err)
         res.redirect(404, "/");
       } else {
-        res.render("wikis/show", {wiki});
+  
+        marked(wiki.body, (err, result) => { //result is html
+          if(err){
+            res.redirect(500, "/");
+          }
+          wiki.body = result;
+          res.render("wikis/show", {wiki});
+        });
       }
     });
    },
@@ -86,6 +95,7 @@ module.exports = {
    update(req, res, next){
      wikiQueries.updateWiki(req, req.body, (err, wiki) => {
        if(err || wiki == null){
+         console.log(`cannot update wiki: ${err}`)
          res.redirect(401, `/wikis/${req.params.id}/edit`);
        } else {
          res.redirect(`/wikis/${req.params.id}`);

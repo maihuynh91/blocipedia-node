@@ -18,12 +18,14 @@
         <div class="form-group">
           <label for="title">Wiki title</label>
           <input type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
+          <small class="text-muted" id="titleHelp">Title must be 2 or more characters in length.</small>
         </div>
 
         <div class="form-group">
           <label for="body">Body</label>
           <textarea rows="4" class="form-control" name="body" placeholder="Enter Body"></textarea>
-
+          <small class="text-muted" id="bodyHelp">Body must be 5 or more characters in length. </small>
+         
                   <% if(currentUser && currentUser.role === "premium") { %>
                     <div class="form-group">
                       <label for="private">Wiki Status</label>
@@ -34,6 +36,7 @@
                     </div>
                   <% } %>
 
+                  <br>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 
